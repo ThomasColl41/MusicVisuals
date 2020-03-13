@@ -16,10 +16,10 @@ public class AudioBandsVisual
     {
         float gap = mv.width / (float) mv.getBands().length;
         mv.noStroke();
-        for(int i = 0 ; i < mv.getBands().length; i++)
+        for(int i = 0 ; i < mv.getBands().length ; i ++)
         {
             mv.fill(PApplet.map(i, 0, mv.getBands().length, 255, 0), 255, 255);
-            mv.rect(i * gap, mv.height, gap,-mv.lerpedBands[i] * 0.2f); 
+            mv.rect(i * gap, mv.height, gap,-mv.getSmoothedBands()[i] * 0.2f); 
         }
     }
 }
