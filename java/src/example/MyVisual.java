@@ -37,8 +37,8 @@ public class MyVisual extends Visual
     {
         if (key == ' ')
         {
-            getAudioSample().stop();
-            getAudioSample().trigger();
+            //getAudioSample().stop();
+            //getAudioSample().trigger();
         }
     }
 
