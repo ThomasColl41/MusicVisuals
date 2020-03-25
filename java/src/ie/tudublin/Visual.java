@@ -14,12 +14,14 @@ public abstract class Visual extends PApplet
 
 	private Minim minim;
 	private AudioInput ai;
-	private AudioSample as;
+	private AudioPlayer ap;
 	private AudioBuffer ab;
 	private FFT fft;
 
 	private float amplitude  = 0;
 	private float smothedAmplitude = 0;
+
+	
 	
 	public void startMinim() 
 	{
@@ -85,8 +87,8 @@ public abstract class Visual extends PApplet
 
 	public void loadAudio(String filename)
 	{
-		as = minim.loadSample(filename, frameSize);
-		ab = as.left;
+		ap = minim.loadFile(filename, frameSize);
+		ab = ap.left;
 	}
 
 	public int getFrameSize() {
@@ -121,9 +123,6 @@ public abstract class Visual extends PApplet
 		return ai;
 	}
 
-	public AudioSample getAudioSample() {
-		return as;
-	}
 
 	public AudioBuffer getAudioBuffer() {
 		return ab;
@@ -135,5 +134,9 @@ public abstract class Visual extends PApplet
 
 	public float getSmoothedAmplitude() {
 		return smothedAmplitude;
+	}
+
+	public AudioPlayer getAudioPlayer() {
+		return ap;
 	}
 }
