@@ -68,15 +68,23 @@ public class Display extends Visual
         }
     }
 
+    public void changeShapes()
+    {
+        int size = shapes.size();
+
+            for(int i = 0; i < size; i++)
+            {
+                shapes.remove(0);
+                newShape();
+            }
+    }
+
 
     public void keyPressed()
     {
         if(key == ' ')
         {
-            for(Shape s : shapes)
-            {
-                s.changeShape(s);
-            }
+            changeShapes();
         }
 
         if(key == 'q')

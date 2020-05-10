@@ -5,10 +5,10 @@ public class Rectangle extends Shape {
 
     public Rectangle()
     {
-        this.x1 = -50;
-        this.y1 = -25;
-        this.l = 100;
-        this.w = 50;
+        this.x1 = -25;
+        this.y1 = -12.5f;
+        this.l = 50;
+        this.w = 25;
     }
 
     public void render(Display d)

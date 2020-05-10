@@ -6,8 +6,8 @@ public class Ellipse extends Shape {
     public Ellipse()
     {
         super();
-        this.l = 100;
-        this.w = 50;
+        this.l = 50;
+        this.w = 25;
     }
 
     public void render(Display d)

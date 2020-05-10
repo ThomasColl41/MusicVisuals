@@ -12,48 +12,6 @@ public class Shape extends Display
         this.y1 = 0;
     }
 
-    public void changeShape(Shape s)
-    {
-        switch((int)random(1,numShapes + 1))
-        {
-            case 1:
-            {
-                s = new Ellipse();
-                break;
-            }
-
-            case 2:
-            {
-                s = new Rectangle();
-                break;
-            }
-
-            case 3:
-            {
-                s = new Triangle();
-                break;
-            }
-
-            case 4:
-            {
-                s = new Circle();
-                break;
-            }
-
-            case 5:
-            {
-                s = new Square();
-                break;
-            }
-
-            default:
-            {
-                s = new Ellipse();
-                break;
-            }
-        }
-    }
-
     public void render(Display d)
     {
        d.text("SHAPE", x1, y1);
