@@ -21,7 +21,9 @@ public class Display extends Visual
             newShape();
         }
         colorMode(HSB);
-        background(0);
+        startMinim();
+        loadAudio("robotrock.mp3");
+        getAudioPlayer().play();
         fill(255);
         stroke(255);
     }
