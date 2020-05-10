@@ -133,7 +133,10 @@ public class Display extends Visual
     public void draw()
     {
         background(0);
+        calculateAverageAmplitude();
         instructions();
         drawShapes();
+
+        line(10, 10, getSmoothedAmplitude() * 1000, 10);
     }
 }
