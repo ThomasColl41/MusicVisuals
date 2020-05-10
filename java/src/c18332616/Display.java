@@ -15,12 +15,56 @@ public class Display extends Visual
 
     public void setup()
     {
-        Shape s1 = new Shape();
-        shapes.add(s1);
+        for(int i = 0; i < 5; i++)
+        {
+            newShape();
+        }
         colorMode(HSB);
         background(0);
         fill(255);
         stroke(255);
+    }
+
+    public void newShape()
+    {
+        switch((int)random(1,6))
+        {
+            case 1:
+            {
+                shapes.add(new Ellipse());
+                break;
+            }
+
+            case 2:
+            {
+                shapes.add(new Rectangle());
+                break;
+            }
+
+            case 3:
+            {
+                shapes.add(new Triangle());
+                break;
+            }
+
+            case 4:
+            {
+                shapes.add(new Circle());
+                break;
+            }
+
+            case 5:
+            {
+                shapes.add(new Square());
+                break;
+            }
+
+            default:
+            {
+                shapes.add(new Ellipse());
+                break;
+            }
+        }
     }
 
 
@@ -30,13 +74,13 @@ public class Display extends Visual
         {
             for(Shape s : shapes)
             {
-                s.changeShape();
+                s.changeShape(s);
             }
         }
 
         if(key == 'q')
         {
-            shapes.add(new Shape());
+            newShape();
         }
 
         if(key == 'e')
@@ -62,13 +106,14 @@ public class Display extends Visual
 
         for(Shape s : shapes)
         {
-            float theta = map(i, 0, 10, 0, TWO_PI);
+            float theta = map(i, 0, shapes.size(), 0, TWO_PI);
             float x = sin(theta) * 200;
             float y = cos(theta) * 200;
             pushMatrix();
             translate(x, y);
             //rotateY(theta);
             s.render(this);
+            //print(s.getClass());
             popMatrix();
             i++;
         }
