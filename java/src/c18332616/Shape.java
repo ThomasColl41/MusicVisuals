@@ -14,7 +14,7 @@ public class Shape extends Display
 
     public void changeShape(Shape s)
     {
-        switch((int)random(1,6))
+        switch((int)random(1,numShapes + 1))
         {
             case 1:
             {
@@ -56,7 +56,7 @@ public class Shape extends Display
 
     public void render(Display d)
     {
-       d.rect(0, 0, 100, 100);
+       d.text("SHAPE", x1, y1);
     }
 
     public float getX1() {

@@ -6,12 +6,12 @@ public class Triangle extends Shape {
 
     public Triangle()
     {
-        this.x1 = -50;
-        this.y1 = -50;
-        this.x2 = 50;
-        this.y2 = 50;
-        this.x3 = 0;
-        this.y3 = 50;
+        this.x1 = 0;
+        this.y1 = -25;
+        this.x2 = -25;
+        this.y2 = 25;
+        this.x3 = 25;
+        this.y3 = 25;
     }
 
     public void render(Display d)

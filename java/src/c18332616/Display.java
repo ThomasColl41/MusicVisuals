@@ -7,6 +7,7 @@ import ie.tudublin.Visual;
 public class Display extends Visual
 {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
+    int numShapes = 5;
 
     public void settings()
     {
@@ -27,7 +28,7 @@ public class Display extends Visual
 
     public void newShape()
     {
-        switch((int)random(1,6))
+        switch((int)random(1,numShapes + 1))
         {
             case 1:
             {
@@ -102,18 +103,17 @@ public class Display extends Visual
     {
         int i = 0;
 
-        translate(250, 250);
+        translate(width / 2, height / 2);
 
         for(Shape s : shapes)
         {
             float theta = map(i, 0, shapes.size(), 0, TWO_PI);
-            float x = sin(theta) * 200;
-            float y = cos(theta) * 200;
+            float x = sin(theta) * 250;
+            float y = cos(theta) * 250;
             pushMatrix();
             translate(x, y);
             //rotateY(theta);
             s.render(this);
-            //print(s.getClass());
             popMatrix();
             i++;
         }

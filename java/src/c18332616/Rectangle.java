@@ -5,7 +5,8 @@ public class Rectangle extends Shape {
 
     public Rectangle()
     {
-        super();
+        this.x1 = -50;
+        this.y1 = -25;
         this.l = 100;
         this.w = 50;
     }

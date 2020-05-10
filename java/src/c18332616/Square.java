@@ -5,8 +5,9 @@ public class Square extends Shape {
 
     public Square()
     {
-        super();
-        this.l = 100;
+        this.x1 = -25;
+        this.y1 = -25;
+        this.l = 50;
     }
 
     public void render(Display d)
