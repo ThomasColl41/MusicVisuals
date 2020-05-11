@@ -13,6 +13,6 @@ public class Rectangle extends Shape {
 
     public void render(Display d)
     {
-        d.rect(x1, y1, l, w);
+        d.rect(x1, y1, l, map(d.getSmoothedAmplitude(), 0, 0.3f, w / 2, w * 2));
     }
 }

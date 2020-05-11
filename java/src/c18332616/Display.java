@@ -22,7 +22,7 @@ public class Display extends Visual
         }
         colorMode(HSB);
         startMinim();
-        loadAudio("robotrock.mp3");
+        loadAudio("heroplanet.mp3");
         getAudioPlayer().play();
         fill(255);
         stroke(255);
@@ -113,6 +113,7 @@ public class Display extends Visual
     {
         int i = 0;
 
+        pushMatrix();
         translate(width / 2, height / 2);
 
         for(Shape s : shapes)
@@ -127,6 +128,7 @@ public class Display extends Visual
             popMatrix();
             i++;
         }
+        popMatrix();
 
     }
 
@@ -137,6 +139,8 @@ public class Display extends Visual
         instructions();
         drawShapes();
 
-        line(10, 10, getSmoothedAmplitude() * 1000, 10);
+        line(width / 2, height / 2, width / 2 + map(getSmoothedAmplitude(), 0, 1, 10, 500), height / 2);
+        ellipse(width / 2, height / 2, 100, map(getSmoothedAmplitude(), 0, 0.4f, 10, 100));
+
     }
 }

@@ -11,6 +11,6 @@ public class Circle extends Shape {
 
     public void render(Display d)
     {
-        d.circle(x1, y1, r);
+        d.circle(x1, y1, map(d.getSmoothedAmplitude(), 0, 0.3f, r / 2, r));
     }
 }

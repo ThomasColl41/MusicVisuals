@@ -12,6 +12,6 @@ public class Square extends Shape {
 
     public void render(Display d)
     {
-        d.square(x1, y1, l);
+        d.square(x1, y1, map(d.getSmoothedAmplitude(), 0, 0.3f, l / 2, l));
     }
 }
