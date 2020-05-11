@@ -7,7 +7,13 @@ import ie.tudublin.Visual;
 public class Display extends Visual
 {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
-    int numShapes = 5;
+    float hueOffset = 0;
+
+    enum strokeVal
+    {
+        INCREASING,
+        DECREASING
+    }
 
     public void settings()
     {
@@ -28,6 +34,7 @@ public class Display extends Visual
         stroke(255);
     }
 
+    int numShapes = 5;
     public void newShape()
     {
         switch((int)random(1,numShapes + 1))
@@ -109,6 +116,31 @@ public class Display extends Visual
         text("\'q\' for new shape, \'e\' to delete a shape, spacebar to change shapes.", 5, height - 5);
     }
 
+    float strokeOffset = 0;
+    strokeVal fader = strokeVal.INCREASING;
+    public void fadeStroke()
+    {
+        stroke(strokeOffset);
+
+        if(strokeOffset <= 0)
+        {
+            fader = strokeVal.INCREASING;
+        }
+        else if (strokeOffset >= 255)
+        {
+            fader = strokeVal.DECREASING;
+        }
+
+        if(fader == strokeVal.INCREASING)
+        {
+            strokeOffset += getSmoothedAmplitude() * 10;
+        }
+        else
+        {
+            strokeOffset -= getSmoothedAmplitude() * 10;
+        }
+    }
+
     public void drawShapes()
     {
         int i = 0;
@@ -116,17 +148,27 @@ public class Display extends Visual
         pushMatrix();
         translate(width / 2, height / 2);
 
+        fadeStroke();
         for(Shape s : shapes)
         {
             float theta = map(i, 0, shapes.size(), 0, TWO_PI);
             float x = sin(theta) * 250;
             float y = cos(theta) * 250;
+
+            //fill();
+            push();
             pushMatrix();
             translate(x, y);
             //rotateY(theta);
+            strokeWeight(2);
+            fill(((map(getSmoothedAmplitude(), 0, 1, 0, 255) + hueOffset) / i) % 255, 
+            255,
+            255);
             s.render(this);
             popMatrix();
+            pop();
             i++;
+            hueOffset += 0.1f;
         }
         popMatrix();
 
@@ -139,8 +181,8 @@ public class Display extends Visual
         instructions();
         drawShapes();
 
-        line(width / 2, height / 2, width / 2 + map(getSmoothedAmplitude(), 0, 1, 10, 500), height / 2);
-        ellipse(width / 2, height / 2, 100, map(getSmoothedAmplitude(), 0, 0.4f, 10, 100));
+        // line(width / 2, height / 2, width / 2 + map(getSmoothedAmplitude(), 0, 1, 10, 500), height / 2);
+        // ellipse(width / 2, height / 2, 100, map(getSmoothedAmplitude(), 0, 0.4f, 10, 100));
 
     }
 }
