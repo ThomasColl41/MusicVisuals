@@ -141,10 +141,44 @@ public class Display extends Visual
         }
     }
 
+    public void drawLines(int shapeCount)
+    {
+        int lines[] = new int[shapeCount];
+
+        translate(width / 2, height / 2);
+
+        for(int i = 0; i < lines.length; i++)
+        {
+            float theta = map(i, 0, lines.length, 0, TWO_PI);
+            float x = sin(theta) * 100;
+            float y = cos(theta) * 100;
+            float outX = x * 3;
+            float outY = y * 3;
+
+            push();
+            pushMatrix();
+            translate(x, y);
+            //line(x, y, 0, 0);
+            line(x * map(getSmoothedAmplitude(), 0, 0.3f, 0, 1.2f), 
+            y * map(getSmoothedAmplitude(), 0, 0.3f, 0, 1.2f),
+            -x, 
+            -y);
+
+            translate(outX, outY);
+            line(outX, 
+            outY,
+            -outX * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.3f), 
+            -outY * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.3f));
+            popMatrix();
+            pop();
+        }
+    }
+
     public void drawShapes()
     {
         int i = 0;
 
+        push();
         pushMatrix();
         translate(width / 2, height / 2);
 
@@ -156,7 +190,6 @@ public class Display extends Visual
             float y = cos(theta) * 250;
 
             //fill();
-            push();
             pushMatrix();
             translate(x, y);
             //rotateY(theta);
@@ -166,11 +199,13 @@ public class Display extends Visual
             255);
             s.render(this);
             popMatrix();
-            pop();
             i++;
             hueOffset += 0.1f;
         }
         popMatrix();
+        pop();
+
+        drawLines(shapes.size());
 
     }
 
@@ -180,6 +215,8 @@ public class Display extends Visual
         calculateAverageAmplitude();
         instructions();
         drawShapes();
+
+        //print(getSmoothedAmplitude() + "\n");
 
         // line(width / 2, height / 2, width / 2 + map(getSmoothedAmplitude(), 0, 1, 10, 500), height / 2);
         // ellipse(width / 2, height / 2, 100, map(getSmoothedAmplitude(), 0, 0.4f, 10, 100));
