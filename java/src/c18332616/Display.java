@@ -158,17 +158,21 @@ public class Display extends Visual
             push();
             pushMatrix();
             translate(x, y);
-            //line(x, y, 0, 0);
-            line(x * map(getSmoothedAmplitude(), 0, 0.3f, 0, 1.2f), 
-            y * map(getSmoothedAmplitude(), 0, 0.3f, 0, 1.2f),
-            -x, 
-            -y);
+            stroke(map(getSmoothedAmplitude(), 0, 0.3f, 255/ 4, 255));
+            line(
+                x * map(getSmoothedAmplitude(), 0, 0.3f, 0, 1), 
+                y * map(getSmoothedAmplitude(), 0, 0.3f, 0, 1),
+                -x, 
+                -y
+            );
 
             translate(outX, outY);
-            line(outX, 
-            outY,
-            -outX * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.3f), 
-            -outY * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.3f));
+            line(
+                outX, 
+                outY,
+                -outX * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.33f), 
+                -outY * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.33f)
+            );
             popMatrix();
             pop();
         }
@@ -194,7 +198,7 @@ public class Display extends Visual
             translate(x, y);
             //rotateY(theta);
             strokeWeight(2);
-            fill(((map(getSmoothedAmplitude(), 0, 1, 0, 255) + hueOffset) / i) % 255, 
+            fill(((map(getSmoothedAmplitude(), 0, 1, 0, 255) + hueOffset) + (i * 5)) % 255, 
             255,
             255);
             s.render(this);
