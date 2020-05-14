@@ -158,6 +158,7 @@ public class Display extends Visual
             push();
             pushMatrix();
             translate(x, y);
+            rotate(angle);
             stroke(map(getSmoothedAmplitude(), 0, 0.3f, 255/ 4, 255));
             line(
                 x * map(getSmoothedAmplitude(), 0, 0.3f, 0, 1), 
@@ -178,6 +179,7 @@ public class Display extends Visual
         }
     }
 
+    float angle = 0.01f;
     public void drawShapes()
     {
         int i = 0;
@@ -190,13 +192,13 @@ public class Display extends Visual
         for(Shape s : shapes)
         {
             float theta = map(i, 0, shapes.size(), 0, TWO_PI);
-            float x = sin(theta) * 250;
-            float y = cos(theta) * 250;
+            float x = sin(theta - angle) * 250;
+            float y = cos(theta - angle) * 250;
 
             //fill();
             pushMatrix();
             translate(x, y);
-            //rotateY(theta);
+            // rotate(angle);
             strokeWeight(2);
             fill(((map(getSmoothedAmplitude(), 0, 1, 0, 255) + hueOffset) + (i * 5)) % 255, 
             255,
@@ -208,6 +210,7 @@ public class Display extends Visual
         }
         popMatrix();
         pop();
+        angle += 0.01f;
 
         drawLines(shapes.size());
 
