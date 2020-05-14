@@ -152,8 +152,8 @@ public class Display extends Visual
             float theta = map(i, 0, lines.length, 0, TWO_PI);
             float x = sin(theta) * 100;
             float y = cos(theta) * 100;
-            float outX = x * 3;
-            float outY = y * 3;
+            float outX = x * 4;
+            float outY = y * 4;
 
             push();
             pushMatrix();
@@ -166,13 +166,14 @@ public class Display extends Visual
                 -x, 
                 -y
             );
-
+            popMatrix();
+            pushMatrix();
             translate(outX, outY);
             line(
                 outX, 
                 outY,
-                -outX * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.33f), 
-                -outY * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.33f)
+                -outX * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.25f), 
+                -outY * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.25f)
             );
             popMatrix();
             pop();
@@ -192,8 +193,8 @@ public class Display extends Visual
         for(Shape s : shapes)
         {
             float theta = map(i, 0, shapes.size(), 0, TWO_PI);
-            float x = sin(theta - angle) * 250;
-            float y = cos(theta - angle) * 250;
+            float x = sin(theta) * 250;
+            float y = cos(theta) * 250;
 
             //fill();
             pushMatrix();
