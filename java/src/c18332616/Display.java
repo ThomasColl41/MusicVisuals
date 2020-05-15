@@ -29,7 +29,7 @@ public class Display extends Visual
         }
         colorMode(HSB);
         startMinim();
-        loadAudio("heroplanet.mp3");
+        loadAudio("disconnected.mp3");
         getAudioPlayer().play();
         fill(255);
         stroke(255);
@@ -154,10 +154,10 @@ public class Display extends Visual
             pushMatrix();
             translate(x, y);
             rotate(angle);
-            stroke(map(getSmoothedAmplitude(), 0, 0.3f, 255/ 4, 255));
+            stroke(map(getSmoothedAmplitude(), 0, 0.5f, 255/ 4, 255));
             line(
-                x * map(getSmoothedAmplitude(), 0, 0.3f, 0, 1), 
-                y * map(getSmoothedAmplitude(), 0, 0.3f, 0, 1),
+                x * map(getSmoothedAmplitude(), 0, 0.5f, 0, 1), 
+                y * map(getSmoothedAmplitude(), 0, 0.5f, 0, 1),
                 -x, 
                 -y
             );
@@ -167,8 +167,8 @@ public class Display extends Visual
             line(
                 outX, 
                 outY,
-                -outX * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.25f), 
-                -outY * map(getSmoothedAmplitude(), 0, 0.3f, 0, 0.25f)
+                -outX * map(getSmoothedAmplitude(), 0, 0.5f, 0, 0.25f), 
+                -outY * map(getSmoothedAmplitude(), 0, 0.5f, 0, 0.25f)
             );
             popMatrix();
             pop();
@@ -213,7 +213,7 @@ public class Display extends Visual
         instructions();
         drawShapes();
 
-        //print(getSmoothedAmplitude() + "\n");
+        // print(getSmoothedAmplitude() + "\n");
 
         // line(width / 2, height / 2, width / 2 + map(getSmoothedAmplitude(), 0, 1, 10, 500), height / 2);
         // ellipse(width / 2, height / 2, 100, map(getSmoothedAmplitude(), 0, 0.4f, 10, 100));
