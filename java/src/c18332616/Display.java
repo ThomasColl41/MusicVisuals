@@ -24,7 +24,7 @@ public class Display extends Visual
     {
         for(int i = 0; i < 5; i++)
         {
-            newShape();
+            shapes.add(newShape());
         }
         colorMode(HSB);
         startMinim();
@@ -35,44 +35,38 @@ public class Display extends Visual
     }
 
     int numShapes = 5;
-    public void newShape()
+    public Shape newShape()
     {
         switch((int)random(1,numShapes + 1))
         {
             case 1:
             {
-                shapes.add(new Ellipse());
-                break;
+                return new Ellipse();
             }
 
             case 2:
             {
-                shapes.add(new Rectangle());
-                break;
+                return new Rectangle();
             }
 
             case 3:
             {
-                shapes.add(new Triangle());
-                break;
+                return new Triangle();
             }
 
             case 4:
             {
-                shapes.add(new Circle());
-                break;
+                return new Circle();
             }
 
             case 5:
             {
-                shapes.add(new Square());
-                break;
+                return new Square();
             }
 
             default:
             {
-                shapes.add(new Ellipse());
-                break;
+                return new Ellipse();
             }
         }
     }
@@ -83,8 +77,7 @@ public class Display extends Visual
 
             for(int i = 0; i < size; i++)
             {
-                shapes.remove(0);
-                newShape();
+                shapes.set(i, newShape());
             }
     }
 
@@ -98,7 +91,7 @@ public class Display extends Visual
 
         if(key == 'q')
         {
-            newShape();
+            shapes.add(newShape());
         }
 
         if(key == 'e')
