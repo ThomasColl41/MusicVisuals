@@ -20,9 +20,10 @@ public class Display extends Visual
         size(800, 600);
     }
 
+    int initSize = 10;
     public void setup()
     {
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < initSize; i++)
         {
             shapes.add(newShape());
         }
