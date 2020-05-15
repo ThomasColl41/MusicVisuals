@@ -189,23 +189,21 @@ public class Display extends Visual
             float theta = map(i, 0, shapes.size(), 0, TWO_PI);
             float x = sin(theta) * 250;
             float y = cos(theta) * 250;
+            float colourGap = map(i, 0, shapes.size(), 0, 255);
 
-            //fill();
             pushMatrix();
             translate(x, y);
-            // rotate(angle);
             strokeWeight(2);
-            fill(((map(getSmoothedAmplitude(), 0, 1, 0, 255) + hueOffset) + (i * 5)) % 255, 
-            255,
-            255);
+            fill((colourGap + hueOffset) % 255, 255, 255);
             s.render(this);
             popMatrix();
             i++;
-            hueOffset += 0.1f;
+            hueOffset += 0.01f;
         }
         popMatrix();
         pop();
         angle += 0.01f;
+        hueOffset += 0.5f;
 
         drawLines(shapes.size());
 
