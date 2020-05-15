@@ -3,6 +3,7 @@ package c18332616;
 import java.util.ArrayList;
 
 import ie.tudublin.Visual;
+import ie.tudublin.VisualException;
 
 public class Display extends Visual
 {
@@ -208,6 +209,16 @@ public class Display extends Visual
         calculateAverageAmplitude();
         instructions();
         drawShapes();
+
+        try
+        {
+            calculateFFT();
+        }
+        catch(VisualException e)
+        {
+            e.printStackTrace();
+        }
+        calculateFrequencyBands();
 
         // print(getSmoothedAmplitude() + "\n");
 
