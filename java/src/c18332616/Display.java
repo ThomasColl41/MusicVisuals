@@ -151,7 +151,6 @@ public class Display extends Visual
             float outY = y * 4;
 
             push();
-            pushMatrix();
             translate(x, y);
             rotate(angle);
             stroke(map(getSmoothedAmplitude(), 0, 0.5f, 255/ 4, 255));
@@ -161,8 +160,8 @@ public class Display extends Visual
                 -x, 
                 -y
             );
-            popMatrix();
-            pushMatrix();
+            pop();
+            push();
             translate(outX, outY);
             line(
                 outX, 
@@ -170,7 +169,6 @@ public class Display extends Visual
                 -outX * map(getSmoothedAmplitude(), 0, 0.5f, 0, 0.25f), 
                 -outY * map(getSmoothedAmplitude(), 0, 0.5f, 0, 0.25f)
             );
-            popMatrix();
             pop();
         }
         angle += 0.01f;
@@ -179,7 +177,6 @@ public class Display extends Visual
     public void drawShapes()
     {
         push();
-        pushMatrix();
         translate(width / 2, height / 2);
 
         fadeStroke();
@@ -190,15 +187,14 @@ public class Display extends Visual
             float y = cos(theta) * 250;
             float colourGap = map(i, 0, shapes.size(), 0, 255);
 
-            pushMatrix();
+            push();
             translate(x, y);
             strokeWeight(2);
             fill((colourGap + hueOffset) % 255, 255, 255);
             shapes.get(i).render(this);
-            popMatrix();
+            pop();
             hueOffset += 0.01f;
         }
-        popMatrix();
         pop();
         hueOffset += 0.5f;
 
