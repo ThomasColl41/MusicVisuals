@@ -178,8 +178,6 @@ public class Display extends Visual
 
     public void drawShapes()
     {
-        // int i = 0;
-
         push();
         pushMatrix();
         translate(width / 2, height / 2);
