@@ -135,6 +135,7 @@ public class Display extends Visual
         }
     }
 
+    float angle = 0.01f;
     public void drawLines(int shapeCount)
     {
         int lines[] = new int[shapeCount];
@@ -172,19 +173,19 @@ public class Display extends Visual
             popMatrix();
             pop();
         }
+        angle += 0.01f;
     }
 
-    float angle = 0.01f;
     public void drawShapes()
     {
-        int i = 0;
+        // int i = 0;
 
         push();
         pushMatrix();
         translate(width / 2, height / 2);
 
         fadeStroke();
-        for(Shape s : shapes)
+        for(int i = 0; i < shapes.size(); i++)
         {
             float theta = map(i, 0, shapes.size(), 0, TWO_PI);
             float x = sin(theta) * 250;
@@ -195,14 +196,12 @@ public class Display extends Visual
             translate(x, y);
             strokeWeight(2);
             fill((colourGap + hueOffset) % 255, 255, 255);
-            s.render(this);
+            shapes.get(i).render(this);
             popMatrix();
-            i++;
             hueOffset += 0.01f;
         }
         popMatrix();
         pop();
-        angle += 0.01f;
         hueOffset += 0.5f;
 
         drawLines(shapes.size());
