@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import ie.tudublin.Visual;
 import ie.tudublin.VisualException;
+import processing.core.PFont;
 
 public class Display extends Visual
 {
@@ -22,6 +23,7 @@ public class Display extends Visual
     }
 
     int initSize = 10;
+    int fontSize = 16;
     public void setup()
     {
         for(int i = 0; i < initSize; i++)
@@ -34,6 +36,8 @@ public class Display extends Visual
         getAudioPlayer().play();
         fill(255);
         stroke(255);
+        PFont instruct = createFont("CONSOLA.TTF", fontSize);
+        textFont(instruct);
     }
 
     int numShapes = 5;
@@ -107,8 +111,13 @@ public class Display extends Visual
 
     public void instructions()
     {
+        push();
+        stroke(255);
+        fill(0);
+        rect(0, height - 5 - fontSize, width, 5 + fontSize);
         fill(255);
         text("\'q\' for new shape, \'e\' to delete a shape, spacebar to change shapes.", 5, height - 5);
+        pop();
     }
 
     float strokeOffset = 0;
@@ -141,6 +150,8 @@ public class Display extends Visual
     {
         int lines[] = new int[shapeCount];
 
+        push();
+
         translate(width / 2, height / 2);
 
         for(int i = 0; i < lines.length; i++)
@@ -172,6 +183,7 @@ public class Display extends Visual
             );
             pop();
         }
+        pop();
         angle += 0.01f;
     }
 
@@ -207,8 +219,8 @@ public class Display extends Visual
     {
         background(0);
         calculateAverageAmplitude();
-        instructions();
         drawShapes();
+        instructions();
 
         try
         {
