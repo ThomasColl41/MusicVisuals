@@ -2,6 +2,7 @@ package c18332616;
 
 import java.util.ArrayList;
 
+import c18332616.Control.Mode;
 import ie.tudublin.Visual;
 import ie.tudublin.VisualException;
 import processing.core.PFont;
@@ -10,6 +11,7 @@ public class Display extends Visual
 {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
     float hueOffset = 0;
+    Control c;
 
     enum strokeVal
     {
@@ -22,11 +24,11 @@ public class Display extends Visual
         size(800, 600);
     }
 
-    int initSize = 10;
-    int fontSize = 16;
+    int initShapes = 10;
+    int fontSize = 13;
     public void setup()
     {
-        for(int i = 0; i < initSize; i++)
+        for(int i = 0; i < initShapes; i++)
         {
             shapes.add(newShape());
         }
@@ -38,6 +40,8 @@ public class Display extends Visual
         stroke(255);
         PFont instruct = createFont("CONSOLA.TTF", fontSize);
         textFont(instruct);
+
+        c = new Control();
     }
 
     int numShapes = 5;
@@ -95,6 +99,18 @@ public class Display extends Visual
             changeShapes();
         }
 
+        if(key == 'a')
+        {
+            if(c.auto == Mode.OFF)
+            {
+                c.auto = Mode.ON;
+            }
+            else
+            {
+                c.auto = Mode.OFF;
+            }
+        }
+
         if(key == 'q')
         {
             shapes.add(newShape());
@@ -107,16 +123,56 @@ public class Display extends Visual
                 shapes.remove(0);
             }
         }
+
+        if(key == 'm')
+        {
+            print("0: " + max0 + "count: " + count0 + "\n");
+            print("1: " + max1 + "count: " + count1 + "\n");
+            print("2: " + max2 + "count: " + count2 + "\n");
+            print("3: " + max3 + "count: " + count3 + "\n");
+            print("4: " + max4 + "count: " + count4 + "\n");
+            print("5: " + max5 + "count: " + count5 + "\n");
+            print("6: " + max6 + "count: " + count6 + "\n");
+            print("7: " + max7 + "count: " + count7 + "\n");
+            print("8: " + max8 + "count: " + count8 + "\n");
+        }
+
+        if(key == 'n')
+        {
+            float[] bandz = getSmoothedBands();
+            for(int i = 0; i < bandz.length; i++)
+            {
+                print(i + ": " + bandz[i] + "\n\n");
+            } 
+        }
     }
 
     public void instructions()
     {
+        String autoMessage;
+        float autoLength = 80;
+        float textGap = 5;
+
+        if(c.auto == Mode.OFF)
+        {
+            autoMessage = "OFF";
+        }
+        else if(c.auto == Mode.ON)
+        {
+            autoMessage = "ON";
+        }
+        else
+        {
+            autoMessage = "???";
+        }
+
         push();
         stroke(255);
         fill(0);
-        rect(0, height - 5 - fontSize, width, 5 + fontSize);
+        rect(-1, height - textGap - fontSize, width + 1, textGap + fontSize);
         fill(255);
-        text("\'q\' for new shape, \'e\' to delete a shape, spacebar to change shapes.", 5, height - 5);
+        text("\'q\' for new shape, \'e\' to delete a shape, spacebar to change shapes, 'a' to toggle auto on/off.", textGap, height - textGap);
+        text("AUTO: " + autoMessage, width - autoLength, height - textGap);
         pop();
     }
 
@@ -215,6 +271,107 @@ public class Display extends Visual
 
     }
 
+    float max0 = 0;
+    float max1 = 0;
+    float max2 = 0;
+    float max3 = 0;
+    float max4 = 0;
+    float max5 = 0;
+    float max6 = 0;
+    float max7 = 0;
+    float max8 = 0;
+    public void maxBands()
+    {
+        float [] bands = getSmoothedBands();
+        if(max0 < bands[0])
+        {
+            max0 = bands[0];
+        }
+        else if(max1 < bands[1])
+        {
+            max1 = bands[1];
+        }
+        else if(max2 < bands[2])
+        {
+            max2 = bands[2];
+        }
+        else if(max3 < bands[3])
+        {
+            max3 = bands[3];
+        }
+        else if(max4 < bands[4])
+        {
+            max4 = bands[4];
+        }
+        else if(max5 < bands[5])
+        {
+            max5 = bands[5];
+        }
+        else if(max6 < bands[6])
+        {
+            max6 = bands[6];
+        }
+        else if(max7 < bands[7])
+        {
+            max7 = bands[7];
+        }
+        else if(max8 < bands[8])
+        {
+            max8 = bands[8];
+        }
+    }
+
+    float count0 = 0;
+    float count1 = 0;
+    float count2 = 0;
+    float count3 = 0;
+    float count4 = 0;
+    float count5 = 0;
+    float count6 = 0;
+    float count7 = 0;
+    float count8 = 0;
+    public void countBands()
+    {
+        float [] bands = getSmoothedBands();
+
+        if(bands[0] > 390)
+        {
+            count0++;
+        }
+        else if(bands[1] > 666)
+        {
+            count1++;
+        }
+        else if(bands[2] > 485)
+        {
+            count2++;
+        }
+        else if(bands[3] > 843)
+        {
+            count3++;
+        }
+        else if(bands[4] > 715)
+        {
+            count4++;
+        }
+        else if(bands[5] > 1129)
+        {
+            count5++;
+        }
+        else if(bands[6] > 1154)
+        {
+            count6++;
+        }
+        else if(bands[7] > 415)
+        {
+            count7++;
+        }
+        else if(bands[8] > 62)
+        {
+            count8++;
+        }
+    }
+
     public void draw()
     {
         background(0);
@@ -231,6 +388,12 @@ public class Display extends Visual
             e.printStackTrace();
         }
         calculateFrequencyBands();
+
+        maxBands();
+        countBands();
+
+        c.check();
+
 
         // print(getSmoothedAmplitude() + "\n");
 
