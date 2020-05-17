@@ -24,6 +24,7 @@ public class Display extends Visual
         {
             shapes.add(newShape());
         }
+        noCursor();
         colorMode(HSB);
         startMinim();
         loadAudio("disconnected.mp3");
