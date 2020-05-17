@@ -29,9 +29,7 @@ public class Display extends Visual
         startMinim();
         loadAudio("disconnected.mp3");
         getAudioPlayer().play();
-        fill(255);
-        stroke(255);
-        PFont instruct = createFont("CONSOLA.TTF", fontSize);
+        PFont instruct = createFont("CONSOLA.TTF", getFontSize());
         textFont(instruct);
 
         c = new Control();
@@ -40,7 +38,7 @@ public class Display extends Visual
     public Shape newShape()
     {
         int numShapes = 5;
-        switch((int)random(1,numShapes + 1))
+        switch((int)random(1, numShapes + 1))
         {
             case 1:
             {
@@ -101,13 +99,13 @@ public class Display extends Visual
 
         if(key == 'a')
         {
-            if(c.auto == Mode.OFF)
+            if(c.getAuto() == Mode.OFF)
             {
-                c.auto = Mode.ON;
+                c.setAuto(Mode.ON);
             }
             else
             {
-                c.auto = Mode.OFF;
+                c.setAuto(Mode.OFF);
             }
         }
 
@@ -122,17 +120,18 @@ public class Display extends Visual
         }
     }
 
+    float maxHsb = 255;
     public void instructions()
     {
         String autoMessage;
         float autoLength = 80;
         float textGap = 5;
 
-        if(c.auto == Mode.OFF)
+        if(c.getAuto() == Mode.OFF)
         {
             autoMessage = "OFF";
         }
-        else if(c.auto == Mode.ON)
+        else if(c.getAuto() == Mode.ON)
         {
             autoMessage = "ON";
         }
@@ -142,10 +141,10 @@ public class Display extends Visual
         }
 
         push();
-        stroke(255);
+        stroke(getMaxHsb());
         fill(0);
-        rect(-1, height - textGap - fontSize, width + 1, textGap + fontSize);
-        fill(255);
+        rect(-1, height - textGap - getFontSize(), width + 1, textGap + getFontSize());
+        fill(getMaxHsb());
         text("\'q\' for new shape, \'e\' to delete a shape, spacebar to change shapes, 'a' to toggle auto on/off.", textGap, height - textGap);
         text("AUTO: " + autoMessage, width - autoLength, height - textGap);
         pop();
@@ -160,24 +159,24 @@ public class Display extends Visual
     float strokeOffset = 0;
     public void fadeStroke()
     {
-        stroke(strokeOffset);
+        stroke(getStrokeOffset());
 
-        if(strokeOffset <= 0)
+        if(getStrokeOffset() <= 0)
         {
-            fader = strokeVal.INCREASING;
+            setFader(strokeVal.INCREASING);
         }
-        else if (strokeOffset >= 255)
+        else if (getStrokeOffset() >= maxHsb)
         {
-            fader = strokeVal.DECREASING;
+            setFader(strokeVal.DECREASING);
         }
 
-        if(fader == strokeVal.INCREASING)
+        if(getFader() == strokeVal.INCREASING)
         {
-            strokeOffset += getSmoothedAmplitude() * 10;
+            setStrokeOffset(getStrokeOffset() + getSmoothedAmplitude() * 10);
         }
         else
         {
-            strokeOffset -= getSmoothedAmplitude() * 10;
+            setStrokeOffset(getStrokeOffset() - getSmoothedAmplitude() * 10);
         }
     }
 
@@ -202,27 +201,28 @@ public class Display extends Visual
 
             push();
             translate(x, y);
-            rotate(angle);
-            stroke(map(getSmoothedAmplitude(), ampMin, ampMax, 255/ 4, 255));
+            rotate(getAngle());
+            stroke(map(getSmoothedAmplitude(), getAmpMin(), getAmpMax(), getMaxHsb() / 4, getMaxHsb()));
             line(
-                x * map(getSmoothedAmplitude(), ampMin, ampMax, 0, 1), 
-                y * map(getSmoothedAmplitude(), ampMin, ampMax, 0, 1),
+                x * map(getSmoothedAmplitude(), getAmpMin(), getAmpMax(), 0, 1), 
+                y * map(getSmoothedAmplitude(), getAmpMin(), getAmpMax(), 0, 1),
                 -x, 
                 -y
             );
             pop();
             push();
             translate(outX, outY);
+            stroke(getMaxHsb());
             line(
                 outX, 
                 outY,
-                -outX * map(getSmoothedAmplitude(), ampMin, ampMax, 0, 0.25f), 
-                -outY * map(getSmoothedAmplitude(), ampMin, ampMax, 0, 0.25f)
+                -outX * map(getSmoothedAmplitude(), getAmpMin(), getAmpMax(), 0, 0.25f), 
+                -outY * map(getSmoothedAmplitude(), getAmpMin(), getAmpMax(), 0, 0.25f)
             );
             pop();
         }
         pop();
-        angle += 0.01f;
+        setAngle(getAngle() + 0.01f);
     }
 
     float hueOffset = 0;
@@ -237,21 +237,19 @@ public class Display extends Visual
             float theta = map(i, 0, shapes.size(), 0, TWO_PI);
             float x = sin(theta) * 250;
             float y = cos(theta) * 250;
-            float colourGap = map(i, 0, shapes.size(), 0, 255);
+            float colourGap = map(i, 0, shapes.size(), 0, getMaxHsb());
 
             push();
             translate(x, y);
             strokeWeight(2);
-            fill((colourGap + hueOffset) % 255, 255, 255);
+            fill((colourGap + getHueOffset()) % getMaxHsb(), getMaxHsb(), getMaxHsb());
             shapes.get(i).render(this);
             pop();
-            hueOffset += 0.01f;
+            setHueOffset(getHueOffset() + 0.01f);
         }
         pop();
-        hueOffset += 0.5f;
-
+        setHueOffset(getHueOffset() + 0.5f);
         drawLines(shapes.size());
-
     }
 
     public void draw()
@@ -275,5 +273,92 @@ public class Display extends Visual
         {
             c.automate(this);
         }
+    }
+
+    public ArrayList<Shape> getShapes() {
+        return shapes;
+    }
+
+    public void setShapes(ArrayList<Shape> shapes) {
+        this.shapes = shapes;
+    }
+
+    public Control getC() {
+        return c;
+    }
+
+    public void setC(Control c) {
+        this.c = c;
+    }
+
+    public int getFontSize() {
+        return fontSize;
+    }
+
+    public void setFontSize(int fontSize) {
+        this.fontSize = fontSize;
+    }
+
+    public float getMaxHsb() {
+        return maxHsb;
+    }
+
+    public void setMaxHsb(float maxHsb) {
+        this.maxHsb = maxHsb;
+    }
+
+    public strokeVal getFader() {
+        return fader;
+    }
+
+    public void setFader(strokeVal fader) {
+        this.fader = fader;
+    }
+
+    public float getStrokeOffset() {
+        return strokeOffset;
+    }
+
+    public void setStrokeOffset(float strokeOffset) {
+        this.strokeOffset = strokeOffset;
+    }
+
+    public float getAngle() {
+        return angle;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public float getAmpMin() {
+        return ampMin;
+    }
+
+    public void setAmpMin(float ampMin) {
+        this.ampMin = ampMin;
+    }
+
+    public float getAmpMax() {
+        return ampMax;
+    }
+
+    public void setAmpMax(float ampMax) {
+        this.ampMax = ampMax;
+    }
+
+    public float getHueOffset() {
+        return hueOffset;
+    }
+
+    public void setHueOffset(float hueOffset) {
+        this.hueOffset = hueOffset;
+    }
+
+    @Override
+    public String toString() {
+        return "Display [ampMax=" + ampMax + ", ampMin=" + ampMin + ", angle=" + angle + ", c=" + c + ", fader=" + fader
+                + ", fontSize=" + fontSize + ", hueOffset=" + hueOffset + ", maxHsb=" + maxHsb + ", shapes=" + shapes
+                + ", strokeOffset=" + strokeOffset + "]";
     }
 }

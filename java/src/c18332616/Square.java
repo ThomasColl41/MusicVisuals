@@ -12,6 +12,19 @@ public class Square extends Shape {
 
     public void render(Display d)
     {
-        d.square(x1, y1, map(d.getSmoothedAmplitude(), ampMin, ampMax, l / 2, l));
+        d.square(getX1(), getY1(), map(d.getSmoothedAmplitude(), getAmpMin(), getAmpMax(), getL() / 2, getL()));
+    }
+
+    public float getL() {
+        return l;
+    }
+
+    public void setL(float l) {
+        this.l = l;
+    }
+
+    @Override
+    public String toString() {
+        return "Square [l=" + l + "]";
     }
 }

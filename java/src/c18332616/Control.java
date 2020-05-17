@@ -29,37 +29,75 @@ public class Control extends Display {
         float deleteThresh = 40;
         int second = 60;
 
-        if(bands[changeBand] > changeThresh && changeCooled == true)
+        if(bands[changeBand] > changeThresh && isChangeCooled() == true)
         {
             d.changeShapes();
-            changeCooled = false;
+            setChangeCooled(false);
         }
         
-        if(bands[newBand] > newThresh && newCooled == true)
+        if(bands[newBand] > newThresh && isNewCooled() == true)
         {
             d.shapes.add(newShape());
-            newCooled = false;
+            setNewCooled(false);
         }
         
-        if(bands[deleteBand] > deleteThresh && deleteCooled == true)
+        if(bands[deleteBand] > deleteThresh && isDeleteCooled() == true)
         {
             d.deleteShape();
-            deleteCooled = false;
+            setDeleteCooled(false);
         }
 
         if(d.frameCount % second == 0)
         {
-            changeCooled = true;
+            setChangeCooled(true);
         }
 
         if(d.frameCount % (second * 1.75) == 0)
         {
-            newCooled = true;
+            setNewCooled(true);
         }
 
         if(d.frameCount % (second * 1.75) == 0)
         {
-            deleteCooled = true;
+            setDeleteCooled(true);
         }
+    }
+
+    public Mode getAuto() {
+        return auto;
+    }
+
+    public void setAuto(Mode auto) {
+        this.auto = auto;
+    }
+
+    public boolean isChangeCooled() {
+        return changeCooled;
+    }
+
+    public void setChangeCooled(boolean changeCooled) {
+        this.changeCooled = changeCooled;
+    }
+
+    public boolean isNewCooled() {
+        return newCooled;
+    }
+
+    public void setNewCooled(boolean newCooled) {
+        this.newCooled = newCooled;
+    }
+
+    public boolean isDeleteCooled() {
+        return deleteCooled;
+    }
+
+    public void setDeleteCooled(boolean deleteCooled) {
+        this.deleteCooled = deleteCooled;
+    }
+
+    @Override
+    public String toString() {
+        return "Control [auto=" + auto + ", changeCooled=" + changeCooled + ", deleteCooled=" + deleteCooled
+                + ", newCooled=" + newCooled + "]";
     }
 }

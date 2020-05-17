@@ -12,7 +12,7 @@ public class Shape extends Display
 
     public void render(Display d)
     {
-       d.text("SHAPE", x1, y1);
+       d.text("SHAPE", getX1(), getY1());
     }
 
     public float getX1() {
@@ -29,6 +29,11 @@ public class Shape extends Display
 
     public void setY1(float y1) {
         this.y1 = y1;
+    }
+
+    @Override
+    public String toString() {
+        return "Shape [x1=" + x1 + ", y1=" + y1 + "]";
     }
 
 }

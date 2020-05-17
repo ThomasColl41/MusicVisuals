@@ -11,6 +11,19 @@ public class Circle extends Shape {
 
     public void render(Display d)
     {
-        d.circle(x1, y1, map(d.getSmoothedAmplitude(), ampMin, ampMax, r / 2, r));
+        d.circle(getX1(), getY1(), map(d.getSmoothedAmplitude(), getAmpMin(), getAmpMax(), getR() / 2, getR()));
+    }
+
+    public float getR() {
+        return r;
+    }
+
+    public void setR(float r) {
+        this.r = r;
+    }
+
+    @Override
+    public String toString() {
+        return "Circle [r=" + r + "]";
     }
 }
