@@ -397,6 +397,8 @@ public class Display extends Visual
         maxBands();
         countBands();
 
+        // c.check(this);
+
         if(c.auto == Mode.ON)
         {
             c.automate(this);
