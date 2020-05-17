@@ -15,19 +15,6 @@ public class Control extends Display {
         auto = Mode.OFF;
     }
 
-    public void check(Display d)
-    {
-        float[] bands = d.getSmoothedBands();
-
-        for(int i = 0; i < bands.length; i++)
-        {
-            float gap = map(i, 0, bands.length, 0, d.width);
-            d.line(gap, d.height - 100, gap, d.height - 100 - bands[i]);
-            d.text(bands[i], gap, d.height - 50);
-            d.text(i, gap, d.height - 25);
-        }
-    }
-
     boolean changeCooled = true;
     boolean newCooled = true;
     boolean deleteCooled = true;
@@ -35,12 +22,12 @@ public class Control extends Display {
     {
         float[] bands = d.getSmoothedBands();
         int changeBand = 1;
-        int newBand = 7;
-        int deleteBand = 8;
-        int second = 60;
         float changeThresh = 212;
+        int newBand = 7;
         float newThresh = 250;
+        int deleteBand = 8;
         float deleteThresh = 40;
+        int second = 60;
 
         if(bands[changeBand] > changeThresh && changeCooled == true)
         {

@@ -12,6 +12,6 @@ public class Ellipse extends Shape {
 
     public void render(Display d)
     {
-        d.ellipse(x1, y1, l, map(d.getSmoothedAmplitude(), 0, 0.5f, w / 2, w));
+        d.ellipse(x1, y1, l, map(d.getSmoothedAmplitude(), ampMin, ampMax, w / 2, w));
     }
 }

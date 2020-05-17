@@ -16,6 +16,6 @@ public class Triangle extends Shape {
 
     public void render(Display d)
     {
-        d.triangle(x1, map(d.getSmoothedAmplitude(), 0, 0.5f, y1 / 2, y1 * 2), x2, y2, x3, y3);
+        d.triangle(x1, map(d.getSmoothedAmplitude(), ampMin, ampMax, y1 / 2, y1 * 2), x2, y2, x3, y3);
     }
 }
