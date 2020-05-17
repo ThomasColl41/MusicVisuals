@@ -91,6 +91,14 @@ public class Display extends Visual
             }
     }
 
+    public void deleteShape()
+    {
+        if(shapes.size() >= 1)
+        {
+            shapes.remove(0);
+        }
+    }
+
 
     public void keyPressed()
     {
@@ -118,10 +126,7 @@ public class Display extends Visual
 
         if(key == 'e')
         {
-            if(shapes.size() >= 1)
-            {
-                shapes.remove(0);
-            }
+            deleteShape();
         }
 
         if(key == 'm')
@@ -392,7 +397,10 @@ public class Display extends Visual
         maxBands();
         countBands();
 
-        c.check();
+        if(c.auto == Mode.ON)
+        {
+            c.automate(this);
+        }
 
 
         // print(getSmoothedAmplitude() + "\n");
