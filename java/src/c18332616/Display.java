@@ -1,7 +1,6 @@
 package c18332616;
 
 import java.util.ArrayList;
-
 import c18332616.Control.Mode;
 import ie.tudublin.Visual;
 import ie.tudublin.VisualException;
@@ -31,7 +30,6 @@ public class Display extends Visual
         getAudioPlayer().play();
         PFont instruct = createFont("CONSOLA.TTF", getFontSize());
         textFont(instruct);
-
         c = new Control();
     }
 
@@ -83,7 +81,6 @@ public class Display extends Visual
     public void changeShapes()
     {
         int size = shapes.size();
-
             for(int i = 0; i < size; i++)
             {
                 shapes.set(i, newShape());
@@ -155,6 +152,7 @@ public class Display extends Visual
         INCREASING,
         DECREASING
     }
+
     strokeVal fader = strokeVal.INCREASING;
     float strokeOffset = 0;
     public void fadeStroke()
@@ -230,7 +228,6 @@ public class Display extends Visual
     {
         push();
         translate(width / 2, height / 2);
-
         fadeStroke();
         for(int i = 0; i < shapes.size(); i++)
         {
